@@ -18,14 +18,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        UserCredentials obj = new UserCredentials();
         String url = "jdbc:mysql://localhost:3306/login";
-        obj.setUsername("root");
-        obj.setPassword("1410");
         String query = "select * from UserDetails where username = ? and password = ?;";
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, obj.getUsername(),obj.getPassword());
+            Connection con = DriverManager.getConnection(url, "root","1410");
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1,username);
             ps.setString(2,password);
@@ -34,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 //      out.println("Gell");
             if(rs.next()){
 
-                RequestDispatcher rd = request.getRequestDispatcher("sucess.html");
+                RequestDispatcher rd = request.getRequestDispatcher("sucess");
                 rd.forward(request,response);
             }
             else{

@@ -1,31 +1,42 @@
 package com.david.login;
 
-public class UserCredentials {
+import com.mysql.cj.jdbc.Driver;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-    private String username;
-    private String password;
+import java.io.PrintWriter;
+import java.sql.*;
 
-    public String getUsername() {
-        return username;
+@WebServlet("/sucess")
+public class UserCredentials extends HttpServlet {
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response){
+
+        String url = "jdbc:mysql://localhost:3306/login";
+        String user = "root";
+        String password = "1410";
+        Connection con = null;
+        String query = "select * from userContact where userID = ?";
+        try{
+            Class.forName("com.mysql.cj.jdbc");
+            con = DriverManager.getConnection(url,user,password);
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1,request.getParameter("username"));
+            ResultSet rs = st.executeQuery();
+
+            rs.next();
+
+            PrintWriter out = response.getWriter();
+            out.println("<h1>---User Details---<h1>");
+            out.println("userId = " +rs.getString(1));
+            out.println("Name = "  + rs.getString(2));
+            out.println("College = " + rs.getString(3));
+            out.println("Degree = " + rs.getString(4));
+            out.println("Branch = " + rs.getString(5));
+        }
+        catch (Exception e){}
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "UserCredentials{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }
