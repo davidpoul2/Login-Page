@@ -1,0 +1,21 @@
+html{
+    background: #143A52;
+    text-align: center;
+    vertical-align: center;
+}
+h3{
+    display: inline;
+}
+.inner{
+    margin: 10px;
+    text-align: center;
+}
+.outter{
+    display: inline-block;
+    border: 5px solid silver;
+    padding: 20px;
+    background-color: #6E828A;
+}
+input{
+    margin: 5px;
+}
