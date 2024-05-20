@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 //      out.println("Gell");
             if(rs.next()){
 
-                RequestDispatcher rd = request.getRequestDispatcher("success");
+                RequestDispatcher rd = request.getRequestDispatcher("sucess.html");
                 rd.forward(request,response);
             }
             else{
