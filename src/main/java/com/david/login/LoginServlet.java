@@ -16,6 +16,7 @@ public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException , ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         UserCredentials obj = new UserCredentials();
