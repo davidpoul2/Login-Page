@@ -1,5 +1,6 @@
 package com.david.login;
 
+//This is a servlet program.
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
