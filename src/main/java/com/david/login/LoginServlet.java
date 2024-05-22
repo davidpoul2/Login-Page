@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet("/xyz")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException , ServletException {
         String username = request.getParameter("username");
@@ -21,8 +21,7 @@ public class LoginServlet extends HttpServlet {
         String url = "jdbc:mysql://localhost:3306/login";
         String query = "select * from UserDetails where username = ? and password = ?;";
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, "root","1410");
+            Connection con = DataBaseConnection.getConnect();
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1,username);
             ps.setString(2,password);
@@ -36,8 +35,8 @@ public class LoginServlet extends HttpServlet {
             }
             else{
 
-                out.println("<h2 style = color:red>login unsuccessful :(<h2>");
-                RequestDispatcher rd = request.getRequestDispatcher("login.html");
+//                out.println("<h2 style = color:red;>login unsuccessful :(</h2>");
+                RequestDispatcher rd = request.getRequestDispatcher("loginFail.html");
                 rd.include(request,response);
             }
         }

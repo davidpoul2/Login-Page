@@ -14,7 +14,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet("/success")
+@WebServlet("/sucess")
 public class SuccessfulServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -22,9 +22,7 @@ public class SuccessfulServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/login";
-            Connection con = DriverManager.getConnection(url,"root","1410");
+            Connection con = DataBaseConnection.getConnect();
             String query = "select * from userContact where userId = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1,request.getParameter("username"));
@@ -34,7 +32,7 @@ public class SuccessfulServlet extends HttpServlet {
             out.println("<head>");
             out.println("<link href = \"styles.css\" rel = \"stylesheet\">");
             out.println("</head>");
-            out.println("<body><div class = succes >");
+            out.println("<body class = bg-gray><div class = container >");
             out.println("<h1>---User Details---</h1><br>");
             out.println("<h4>UserId : " + rs.getString(1)+"<br>");
             out.println("Name : " + rs.getString(2)+"<br>");
